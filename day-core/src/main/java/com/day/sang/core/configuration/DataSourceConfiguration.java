@@ -1,4 +1,4 @@
-package configuration;
+package com.day.sang.core.configuration;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import org.slf4j.Logger;
@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 import java.util.Map;
 
 @Configuration
-@PropertySource("classpath:core-${spring.profiles.active}.properties")
+@PropertySource("classpath:application-${spring.profiles.active}.properties")
 public class DataSourceConfiguration {
 
     private final static Logger logger = LoggerFactory.getLogger(DataSourceConfiguration.class);
@@ -24,14 +24,13 @@ public class DataSourceConfiguration {
 
         private Map<String, String> config;
 
-        @Bean(name = "sangDataSource")
-        @Qualifier("sangDataSource")
+        @Bean(name = "sangDatasource")
+        @Qualifier("sangDatasource")
         @Primary
         public DataSource primaryDataSource() throws Exception {
             logger.info("-------------------- datasource.sang init ---------------------");
             return DruidDataSourceFactory.createDataSource(config);
         }
-
 
         public Map<String, String> getConfig() {
             return config;
